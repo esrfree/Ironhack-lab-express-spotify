@@ -1,0 +1,6 @@
+
+{{#each respFromDB}}
+    <img src={{this.images.0.url}} alt="">
+    {{this.name}}
+    <a href="./album:{{this.id}}" type="button">Click Me!</a>
+{{/each}}
