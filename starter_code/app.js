@@ -38,7 +38,6 @@ app.get("/artist", ( req, res ) => {
     .searchArtists(req.query.name)
     .then(data => {
       const respFromDB = data.body.artists.items;
-      //console.log('The received data from the API: ', respFromDB);
       res.render('./artists', {respFromDB})
     })
     .catch(err => {
@@ -46,13 +45,24 @@ app.get("/artist", ( req, res ) => {
     });
 })
 
-app.get('/album:id', ( req, res ) => {
-  console.log( 'this is the artist id ', req.params.id.slice(1))
+app.get('/album/:id', ( req, res ) => {
   spotifyApi
-  .getArtistAlbums( req.params.id.slice(1) )
-  .then(data => console.log(data))
-  .catch( err => console.log(err))
+  .getArtistAlbums( req.params.id.substring(1) )
+  .then(data => {
+    const albums = data.body.items;
+    res.render('./album', {albums})
+  })
+  .catch( err => console.log('The error while searching albums occurred: ', err))
+})
 
+app.get('/tracks/:id', ( req, res ) => {
+  spotifyApi
+  .getAlbumTracks( req.params.id.substring(1) )
+  .then(data => {
+    const albumTracks = data.body.items;
+    res.render('./tracks', {albumTracks})
+  })
+  .catch( err => console.log('The error while searching albums occurred: ', err))
 })
 
 

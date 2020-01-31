@@ -1,6 +1,6 @@
 
 {{#each respFromDB}}
-    <img src={{this.images.0.url}} alt="">
+    <img src={{this.images.1.url}} alt="">
     {{this.name}}
-    <a href="./album:{{this.id}}" type="button">Click Me!</a>
+    <a href="/album/:{{this.id}}" type="button">View Albums</a>
 {{/each}}
